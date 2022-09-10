@@ -51,10 +51,7 @@ jobs:
 
       - name: Check for Git Changes
         id: vars
-        run: |
-          echo "$(git diff HEAD)"
-          echo "$(git ls-files --other --exclude-standard --directory)"
-          echo ::set-output name=has_git_changes::$(if [ -n "$(git ls-files --other --exclude-standard --directory)"]; then echo NO; else echo YES; fi)
+        run: echo ::set-output name=has_git_changes::$(if [ -n "$(git diff HEAD)"]; then echo NO; else echo YES; fi)
 
       - name: Commit files
         if: steps.vars.outputs.has_git_changes == 'YES'
