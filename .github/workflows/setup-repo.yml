@@ -51,7 +51,14 @@ jobs:
 
       - name: Check for Git Changes
         id: vars
-        run: echo ::set-output name=has_git_changes::$(if [ -n "$(git diff-index --quiet HEAD --)"]; then echo NO; else echo YES; fi)
+        run: |
+          echo "---First---"
+          echo "$(git diff-index --quiet HEAD --)"
+          echo "---Second---"
+          echo "$(git diff HEAD)"
+          echo "---Third---"
+          echo "$(git add . && git diff-index --cached --quiet HEAD)"
+          echo ::set-output name=has_git_changes::$(if [ -n "$(git diff-index --quiet HEAD --)"]; then echo NO; else echo YES; fi)
 
       - name: Commit files
         if: steps.vars.outputs.has_git_changes == 'YES'
