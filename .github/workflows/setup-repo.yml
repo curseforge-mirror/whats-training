@@ -53,7 +53,7 @@ jobs:
         id: vars
         run: |
           echo "---First---"
-          echo "$(git diff-index --quiet HEAD --)"
+          echo "$(git status -s -uno)"
           echo "---Second---"
           echo "$(git diff HEAD)"
           echo "---Third---"
